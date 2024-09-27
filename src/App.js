@@ -92,59 +92,61 @@ function App() {
 
   return (
     <div className="App">
-      <div className="game-title d-flex gap-3 flex-column">
-        <h1
-          style={{
-            color:
-              gameStatus === "ALL CLEARED"
-                ? "green"
-                : gameStatus === "GAME OVER"
-                ? "red"
-                : "black",
-          }}
-        >
-          {gameStatus === "PLAYING" ? "LET'S PLAY" : gameStatus}
-        </h1>
-        <div className="point align-items-baseline">
-          <p style={{ marginRight: "15px" }}>Points:</p>
-          <input
-            className="input-number"
-            type="number"
-            value={inputNumber}
-            onChange={handleInputChange}
-            min="1"
-          />
-        </div>
-
-        <div
-          className="align-items-baseline"
-          style={{ display: "flex", alignItems: "center" }}
-        >
-          <p style={{ marginRight: "20px" }}>Time: </p>
-          <span>{timer.toFixed(1)}s</span>
-        </div>
-        <div>
-          <button onClick={startNewGame} className="restart-btn">
-            {gameStarted ? "Restart" : "Play"}
-          </button>
-        </div>
-      </div>
-      <div className="game-board">
-        {numbers.map((number) => (
-          <button
-            key={number.value}
-            onClick={() => handleNumberClick(number)}
-            className={`number-button ${number.visible ? "" : "hidden"} ${
-              number.clicked ? "clicked" : ""
-            }`}
-            style={{ top: number.top, left: number.left }}
-            disabled={!number.visible || gameOver}
+      <div className="game-container">
+        <div className="game-title d-flex gap-3 flex-column">
+          <h1
+            style={{
+              color:
+                gameStatus === "ALL CLEARED"
+                  ? "green"
+                  : gameStatus === "GAME OVER"
+                  ? "red"
+                  : "black",
+            }}
           >
-            {number.value}
-          </button>
-        ))}
+            {gameStatus === "PLAYING" ? "LET'S PLAY" : gameStatus}
+          </h1>
+          <div className="point align-items-baseline">
+            <p style={{ marginRight: "15px" }}>Points:</p>
+            <input
+              className="input-number"
+              type="number"
+              value={inputNumber}
+              onChange={handleInputChange}
+              min="1"
+            />
+          </div>
+
+          <div
+            className="align-items-baseline"
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <p style={{ marginRight: "20px" }}>Time: </p>
+            <span>{timer.toFixed(1)}s</span>
+          </div>
+          <div>
+            <button onClick={startNewGame} className="restart-btn">
+              {gameStarted ? "Restart" : "Play"}
+            </button>
+          </div>
+        </div>
+        <div className="game-board">
+          {numbers.map((number) => (
+            <button
+              key={number.value}
+              onClick={() => handleNumberClick(number)}
+              className={`number-button ${number.visible ? "" : "hidden"} ${
+                number.clicked ? "clicked" : ""
+              }`}
+              style={{ top: number.top, left: number.left }}
+              disabled={!number.visible || gameOver}
+            >
+              {number.value}
+            </button>
+          ))}
+        </div>
+        {gameOver && <p>Game Over!</p>}
       </div>
-      {gameOver && <p>Game Over!</p>}
     </div>
   );
 }
